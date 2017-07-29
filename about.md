@@ -4,12 +4,11 @@ title: About
 permalink: /about/
 ---
 
-This is the base Jekyll theme. You can find out more info about customizing your Jekyll theme, as well as basic Jekyll usage documentation at [jekyllrb.com](https://jekyllrb.com/)
+Concept to delivery Web/Software Application Developer, on solo and in team
+environments. I spend my time on front and back end development and web micro
+services using Ruby/Ruby on Rails, React/Flux, Java/Play Framework,
+Nodejs/Express, and most recently Clojure.
 
-You can find the source code for the Jekyll new theme at:
-{% include icon-github.html username="jekyll" %} /
-[minima](https://github.com/jekyll/minima)
-
-You can find the source code for Jekyll at
-{% include icon-github.html username="jekyll" %} /
-[jekyll](https://github.com/jekyll/jekyll)
+Before my role as a developer, I spent 8+ years as an astronomer scripting for
+space science in Integral Field Spectroscopy/Unit (IFS/IFU for the James Webb
+Space Telescope) and Young Stellar Objects (YSOs) using Python.
