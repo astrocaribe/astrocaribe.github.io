@@ -1,5 +1,68 @@
-<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="http://jekyllrb.com" version="3.4.1">Jekyll</generator><link href="http://localhost:4000/feed.xml" rel="self" type="application/atom+xml" /><link href="http://localhost:4000/" rel="alternate" type="text/html" /><updated>2017-07-30T01:35:33-05:00</updated><id>http://localhost:4000/</id><title type="html">What I Typed Today</title><subtitle>What I typed today - This blog is intended to document tidbits of information that I have learned, and continue to learn on my development journey.
-</subtitle><entry><title type="html">Clojure Threading Macros</title><link href="http://localhost:4000/clojure/2017/07/29/clojure-threading-macros.html" rel="alternate" type="text/html" title="Clojure Threading Macros" /><published>2017-07-29T19:00:00-05:00</published><updated>2017-07-29T19:00:00-05:00</updated><id>http://localhost:4000/clojure/2017/07/29/clojure-threading-macros</id><content type="html" xml:base="http://localhost:4000/clojure/2017/07/29/clojure-threading-macros.html">&lt;p&gt;I’ve been coding Clojure for ~ 8 months, and it’s only been in the few recent
+<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="http://jekyllrb.com" version="3.4.1">Jekyll</generator><link href="http://localhost:4000/feed.xml" rel="self" type="application/atom+xml" /><link href="http://localhost:4000/" rel="alternate" type="text/html" /><updated>2017-07-31T17:55:52-05:00</updated><id>http://localhost:4000/</id><title type="html">What I Typed Today</title><subtitle>What I typed today - This blog is intended to document tidbits of information that I have learned, and continue to learn on my development journey.
+</subtitle><entry><title type="html">Unscrewing a Git merge</title><link href="http://localhost:4000/git/clojure/dev/2017/07/31/git-merge-screwup.html" rel="alternate" type="text/html" title="Unscrewing a Git merge" /><published>2017-07-31T12:00:00-05:00</published><updated>2017-07-31T12:00:00-05:00</updated><id>http://localhost:4000/git/clojure/dev/2017/07/31/git-merge-screwup</id><content type="html" xml:base="http://localhost:4000/git/clojure/dev/2017/07/31/git-merge-screwup.html">&lt;p&gt;Yep. I screwed up a git merge today. It started with a sinking feeling that
+something wasn’t quite right, and ended with confirmation that “&lt;strong&gt;Yep, I really
+did screw that up!&lt;/strong&gt;”.&lt;/p&gt;
+
+&lt;h3 id=&quot;tldr&quot;&gt;TL;DR&lt;/h3&gt;
+
+&lt;p&gt;So how did I fix it? After much reading and rationalizing, it did a simple
+thing; I threw away the last commit that included the merge by executing a hard
+reset, one commit back:&lt;/p&gt;
+
+&lt;figure class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-bash&quot; data-lang=&quot;bash&quot;&gt;  git reset --hard HEAD~1&lt;/code&gt;&lt;/pre&gt;&lt;/figure&gt;
+
+&lt;h3 id=&quot;setup&quot;&gt;Setup&lt;/h3&gt;
+
+&lt;p&gt;A co-worker and I have been working off the &lt;code class=&quot;highlighter-rouge&quot;&gt;dev&lt;/code&gt; branch of our repo, and I am a
+fan of feature branch work. Due to the nature of what we’re doing, I am happy to
+let him continue posting work directly to the &lt;code class=&quot;highlighter-rouge&quot;&gt;dev&lt;/code&gt; branch, while I continue
+feature branch work. Now since this is mostly to bolster our Clojure unit tests,
+really, it’s not a big deal right now.&lt;/p&gt;
+
+&lt;p&gt;The issue comes when I decide to merge dev work into my branch. How hard can it
+be, right? Without thinking, I commit my feature branch changes (&lt;strong&gt;mistake #1&lt;/strong&gt;)
+and proceed to merge &lt;code class=&quot;highlighter-rouge&quot;&gt;dev&lt;/code&gt; into my branch (&lt;strong&gt;mistake #2&lt;/strong&gt;):&lt;/p&gt;
+
+&lt;figure class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-shell&quot; data-lang=&quot;shell&quot;&gt;  git checkout dev
+  git pull  &lt;span class=&quot;c&quot;&gt;#pull latest changes&lt;/span&gt;
+  git checkout feature-branch
+  git merge dev&lt;/code&gt;&lt;/pre&gt;&lt;/figure&gt;
+
+&lt;p&gt;Welp, git did exactly as I asked, but not what I wanted. The result was broken
+unit tests (that I expected), but more importantly, to my detriment, conflicts.
+As in merge conflicts. &lt;strong&gt;Mistake #3&lt;/strong&gt; now comes into play here; without taking
+the time to understand the errors that the merge conflict resolution caused, I
+started wholesale chipping away at the merge blocks that I didn’t think I needed.
+What you get at the end of that is a giant mess…&lt;/p&gt;
+
+&lt;h3 id=&quot;processing&quot;&gt;Processing…&lt;/h3&gt;
+
+&lt;p&gt;After a couple of hours trying to fix the conflicts, I give up, and resign to
+rewriting my morning’s work; from scratch. The biggest issue of all is that the
+initial merge sorted the timeline such that all commit we’re in chronological
+order, including a few older ones. My co-worker’s code intwined in a dance with
+mine.&lt;/p&gt;
+
+&lt;p&gt;I panicked, because there was no way I could untangle that manually. I stopped,
+thought about it for a few minutes, and came up with maybe trying a &lt;code class=&quot;highlighter-rouge&quot;&gt;cherry-pick&lt;/code&gt;
+or &lt;code class=&quot;highlighter-rouge&quot;&gt;git rebase&lt;/code&gt; to save me. Then I got desperate enough to try the impossible:
+how about blowing away that merge commit itself? Pretend it didn’t happen?&lt;/p&gt;
+
+&lt;h3 id=&quot;the-problem-solver&quot;&gt;The Problem Solver&lt;/h3&gt;
+
+&lt;p&gt;I took a deep breath, copied code from the mangled merge that I knew I would
+need “just in case”. And then uttered the magic words (&lt;em&gt;a prayer. What I
+muttered, really, was a prayer to The Coding Gods&lt;/em&gt;):&lt;/p&gt;
+
+&lt;figure class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-unix&quot; data-lang=&quot;unix&quot;&gt;git reset --hard HEAD~1&lt;/code&gt;&lt;/pre&gt;&lt;/figure&gt;
+
+&lt;p&gt;The response on my terminal staring back at me? Exactly what I needed! It was as
+if my terminal took all my code back to a time machine, hit a temporal
+&lt;code class=&quot;highlighter-rouge&quot;&gt;-1 commit&lt;/code&gt; button on my timeline, and took me back to a state where nothing was
+amiss; back to a good state from the morning! &lt;strong&gt;HOORAY!!!&lt;/strong&gt;&lt;/p&gt;
+
+&lt;p&gt;And the best part? No intertwined code from the &lt;code class=&quot;highlighter-rouge&quot;&gt;dev&lt;/code&gt; branch from my co-worker!
+Nothing to unravel; just getting a second chance to do it right this time.&lt;/p&gt;</content><author><name></name></author><summary type="html">Yep. I screwed up a git merge today. It started with a sinking feeling that something wasn’t quite right, and ended with confirmation that “Yep, I really did screw that up!”.</summary></entry><entry><title type="html">Clojure Threading Macros</title><link href="http://localhost:4000/clojure/dev/2017/07/29/clojure-threading-macros.html" rel="alternate" type="text/html" title="Clojure Threading Macros" /><published>2017-07-29T19:00:00-05:00</published><updated>2017-07-29T19:00:00-05:00</updated><id>http://localhost:4000/clojure/dev/2017/07/29/clojure-threading-macros</id><content type="html" xml:base="http://localhost:4000/clojure/dev/2017/07/29/clojure-threading-macros.html">&lt;p&gt;I’ve been coding Clojure for ~ 8 months, and it’s only been in the few recent
 months that some of the concepts are beginning to click. Only after a deed dive
 of impressively written code, do some of the nuances begin to emerge.&lt;/p&gt;
 
