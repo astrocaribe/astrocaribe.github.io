@@ -35,3 +35,4 @@ exclude:
   - Gemfile
   - Gemfile.lock
 timezone: US/Central
+plugins_dir: [liquid_reading_time]

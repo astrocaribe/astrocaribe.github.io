@@ -6,11 +6,11 @@
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta name="viewport" content="width=device-width, initial-scale=1">
 
-  <title>About</title>
-  <meta name="description" content="What I typed today - This blog is intended to document tidbits of information that I have learned, and continue to learn on my development journey.">
+  <title>Unscrewing a Git merge</title>
+  <meta name="description" content="Yep. I screwed up a git merge today. It started with a sinking feeling that something wasn’t quite right, and ended with confirmation that “Yep, I really did...">
 
   <link rel="stylesheet" href="/assets/main.css">
-  <link rel="canonical" href="http://localhost:4000/about/">
+  <link rel="canonical" href="http://localhost:4000/dev/2017/07/31/git-merge-screwup.html">
   <link rel="alternate" type="application/rss+xml" title="What I Typed Today" href="/feed.xml">
   
   
@@ -64,34 +64,89 @@
 
     <main class="page-content" aria-label="Content">
       <div class="wrapper">
-        <article class="post">
+        <article class="post" itemscope itemtype="http://schema.org/BlogPosting">
 
   <header class="post-header">
-    <h1 class="post-title">About</h1>
+    <h1 class="post-title" itemprop="name headline">Unscrewing a Git merge</h1>
+    <p class="post-meta">
+      <time datetime="2017-07-31T12:00:00-05:00" itemprop="datePublished">
+        
+        Jul 31, 2017
+      </time>
+      
+        • <span itemprop="author" itemscope itemtype="http://schema.org/Person"><span itemprop="name">astrocaribe</span></span>
+      </p>
   </header>
 
-  <div class="post-content">
-    <div class="author-block">
-  <div class="outer-ring">
-    <div class="inner-ring">
-        <img id="authorImage" src="http://localhost:4000/assets/images/author.jpg" />
-    </div>
+  <div class="post-content" itemprop="articleBody">
+    <p>Yep. I screwed up a git merge today. It started with a sinking feeling that
+something wasn’t quite right, and ended with confirmation that “<strong>Yep, I really
+did screw that up!</strong>”.</p>
+
+<h3 id="tldr">TL;DR</h3>
+
+<p>So how did I fix it? After much reading and rationalizing, it did a simple
+thing; I threw away the last commit that included the merge by executing a hard
+reset, one commit back:</p>
+
+<figure class="highlight"><pre><code class="language-bash" data-lang="bash">  git reset --hard HEAD~1</code></pre></figure>
+
+<h3 id="setup">Setup</h3>
+
+<p>A co-worker and I have been working off the <code class="highlighter-rouge">dev</code> branch of our repo, and I am a
+fan of feature branch work. Due to the nature of what we’re doing, I am happy to
+let him continue posting work directly to the <code class="highlighter-rouge">dev</code> branch, while I continue
+feature branch work. Now since this is mostly to bolster our Clojure unit tests,
+really, it’s not a big deal right now.</p>
+
+<p>The issue comes when I decide to merge dev work into my branch. How hard can it
+be, right? Without thinking, I commit my feature branch changes (<strong>mistake #1</strong>)
+and proceed to merge <code class="highlighter-rouge">dev</code> into my branch (<strong>mistake #2</strong>):</p>
+
+<figure class="highlight"><pre><code class="language-shell" data-lang="shell">  git checkout dev
+  git pull  <span class="c">#pull latest changes</span>
+  git checkout feature-branch
+  git merge dev</code></pre></figure>
+
+<p>Welp, git did exactly as I asked, but not what I wanted. The result was broken
+unit tests (that I expected), but more importantly, to my detriment, conflicts.
+As in merge conflicts. <strong>Mistake #3</strong> now comes into play here; without taking
+the time to understand the errors that the merge conflict resolution caused, I
+started wholesale chipping away at the merge blocks that I didn’t think I needed.
+What you get at the end of that is a giant mess…</p>
+
+<h3 id="processing">Processing…</h3>
+
+<p>After a couple of hours trying to fix the conflicts, I give up, and resign to
+rewriting my morning’s work; from scratch. The biggest issue of all is that the
+initial merge sorted the timeline such that all commit we’re in chronological
+order, including a few older ones. My co-worker’s code intwined in a dance with
+mine.</p>
+
+<p>I panicked, because there was no way I could untangle that manually. I stopped,
+thought about it for a few minutes, and came up with maybe trying a <code class="highlighter-rouge">cherry-pick</code>
+or <code class="highlighter-rouge">git rebase</code> to save me. Then I got desperate enough to try the impossible:
+how about blowing away that merge commit itself? Pretend it didn’t happen?</p>
+
+<h3 id="the-problem-solver">The Problem Solver</h3>
+
+<p>I took a deep breath, copied code from the mangled merge that I knew I would
+need “just in case”. And then uttered the magic words (<em>a prayer. What I
+muttered, really, was a prayer to The Coding Gods</em>):</p>
+
+<figure class="highlight"><pre><code class="language-unix" data-lang="unix">git reset --hard HEAD~1</code></pre></figure>
+
+<p>The response on my terminal staring back at me? Exactly what I needed! It was as
+if my terminal took all my code back to a time machine, hit a temporal
+<code class="highlighter-rouge">-1 commit</code> button on my timeline, and took me back to a state where nothing was
+amiss; back to a good state from the morning! <strong>HOORAY!!!</strong></p>
+
+<p>And the best part? No intertwined code from the <code class="highlighter-rouge">dev</code> branch from my co-worker!
+Nothing to unravel; just getting a second chance to do it right this time.</p>
+
   </div>
-</div>
 
-<p><strong><em>Reading time: ~1 minute</em></strong></p>
-
-<p>Concept to delivery Web/Software Application Developer, on solo and in team
-environments. I spend my time on front and back end development and web micro
-services using Ruby/Ruby on Rails, React/Flux, Java/Play Framework,
-Nodejs/Express, and most recently Clojure.</p>
-
-<p>Before my role as a developer, I spent 8+ years as an astronomer scripting for
-space science in Integral Field Spectroscopy/Unit (IFS/IFU for the James Webb
-Space Telescope) and Young Stellar Objects (YSOs) using Python.</p>
-
-  </div>
-
+  
 </article>
 
       </div>
