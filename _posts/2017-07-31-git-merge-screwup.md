@@ -1,9 +1,12 @@
 ---
 layout: post
 title:  "Unscrewing a Git merge"
+author: astrocaribe
 date:   2017-07-31 17:00:00
 categories: git clojure dev
 ---
+
+***Reading time: {{ page.content | reading_time }}***
 
 Yep. I screwed up a git merge today. It started with a sinking feeling that
 something wasn't quite right, and ended with confirmation that "**Yep, I really
@@ -65,7 +68,7 @@ need "just in case". And then uttered the magic words (*a prayer. What I
 muttered, really, was a prayer to The Coding Gods*):
 
 {% highlight unix %}
-git reset --hard HEAD~1
+  git reset --hard HEAD~1
 {% endhighlight %}
 
 The response on my terminal staring back at me? Exactly what I needed! It was as

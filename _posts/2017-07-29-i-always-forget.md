@@ -1,9 +1,11 @@
 ---
 layout: post
 title:  "I Always Forget"
+author: astrocaribe
 date:   2017-07-29 11:00:00
 categories: update
 ---
+***Reading time: {{ page.content | reading_time }}***
 
 Often times in the fury of the current tasks ahead, I find myself making small
 leaps of progress. and as is customary, I forget to document these little

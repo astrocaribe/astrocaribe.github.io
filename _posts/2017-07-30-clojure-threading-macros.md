@@ -1,9 +1,12 @@
 ---
 layout: post
 title:  "Clojure Threading Macros"
+author: astrocaribe
 date:   2017-07-30 00:00:00
-categories: clojure dev
+categories: clojure
 ---
+
+***Reading time: {{ page.content | reading_time }}***
 
 I've been coding Clojure for ~ 8 months, and it's only been in the few recent
 months that some of the concepts are beginning to click. Only after a deed dive
