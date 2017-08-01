@@ -2,7 +2,9 @@
 layout: post
 title:  "I Always Forget"
 date:   2017-07-29 11:00:00
-categories: update
+author: astrocaribe
+category: blog
+tags: update
 ---
 
 Often times in the fury of the current tasks ahead, I find myself making small

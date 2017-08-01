@@ -2,7 +2,9 @@
 layout: post
 title:  "Unscrewing a Git merge"
 date:   2017-07-31 17:00:00
-categories: git clojure dev
+author: astrocaribe
+category: dev
+tags: [git clojure]
 ---
 
 Yep. I screwed up a git merge today. It started with a sinking feeling that

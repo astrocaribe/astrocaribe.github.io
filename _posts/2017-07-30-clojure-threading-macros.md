@@ -2,7 +2,9 @@
 layout: post
 title:  "Clojure Threading Macros"
 date:   2017-07-30 00:00:00
-categories: clojure dev
+author: astrocaribe
+category: dev
+tags: [clojure]
 ---
 
 I've been coding Clojure for ~ 8 months, and it's only been in the few recent
