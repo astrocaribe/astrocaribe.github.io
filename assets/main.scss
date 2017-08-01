@@ -1,0 +1,38 @@
+---
+---
+@import "{{ site.theme }}";
+.author-block {
+  height: 200px;
+  width: 100%
+}
+
+.outer-ring {
+  width: 180px;
+  height: 180px;
+  background: #424242;
+  border-radius: 100%;
+  margin: 0 auto;
+}
+
+.inner-ring {
+  width: 150px;
+  height: 150px;
+  background: black;
+  position: relative;
+  border-radius: 100%;
+  top: 15px;
+  left: 15px;
+  transition: all .15s cubic-bezier(.11,.65,1,1.69);
+}
+
+.inner-ring:hover {
+  transform: scale(1.21);
+}
+
+#authorImage {
+  display: block;
+  position: absolute;
+  height: 150px;
+  width: 150px;
+  border-radius: 100%
+}
