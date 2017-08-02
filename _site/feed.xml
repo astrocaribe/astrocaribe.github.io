@@ -1,5 +1,114 @@
-<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="3.4.1">Jekyll</generator><link href="https://astrocaribe.github.io//feed.xml" rel="self" type="application/atom+xml" /><link href="https://astrocaribe.github.io//" rel="alternate" type="text/html" /><updated>2017-08-01T22:23:44-05:00</updated><id>https://astrocaribe.github.io//</id><title type="html">What I Typed Today</title><subtitle>What I typed today - This blog is intended to document tidbits of information that I have learned, and continue to learn on my development journey.
-</subtitle><entry><title type="html">Unscrewing a Git merge</title><link href="https://astrocaribe.github.io//dev/2017/07/31/git-merge-screwup.html" rel="alternate" type="text/html" title="Unscrewing a Git merge" /><published>2017-07-31T12:00:00-05:00</published><updated>2017-07-31T12:00:00-05:00</updated><id>https://astrocaribe.github.io//dev/2017/07/31/git-merge-screwup</id><content type="html" xml:base="https://astrocaribe.github.io//dev/2017/07/31/git-merge-screwup.html">&lt;p&gt;Yep. I screwed up a git merge today. It started with a sinking feeling that
+<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="3.4.1">Jekyll</generator><link href="https://astrocaribe.github.io//feed.xml" rel="self" type="application/atom+xml" /><link href="https://astrocaribe.github.io//" rel="alternate" type="text/html" /><updated>2017-08-01T23:28:03-05:00</updated><id>https://astrocaribe.github.io//</id><title type="html">What I Typed Today</title><subtitle>What I typed today - This blog is intended to document tidbits of information that I have learned, and continue to learn on my development journey.
+</subtitle><entry><title type="html">Automating Website Deployment</title><link href="https://astrocaribe.github.io//dev/2017/08/01/automating-website-deployment.html" rel="alternate" type="text/html" title="Automating Website Deployment" /><published>2017-08-01T17:46:00-05:00</published><updated>2017-08-01T17:46:00-05:00</updated><id>https://astrocaribe.github.io//dev/2017/08/01/automating-website-deployment</id><content type="html" xml:base="https://astrocaribe.github.io//dev/2017/08/01/automating-website-deployment.html">&lt;h3 id=&quot;tldr&quot;&gt;TL;DR:&lt;/h3&gt;
+
+&lt;p&gt;I use Grunt to deploy my updated site, with the configured tasks:&lt;/p&gt;
+
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;grunt sftp
+&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+
+&lt;p&gt;All my files get pushed to the host, updating the site once it is done.&lt;/p&gt;
+
+&lt;h3 id=&quot;the-journey-to-recollection&quot;&gt;The Journey To Recollection&lt;/h3&gt;
+
+&lt;p&gt;My current résumé-style website, &lt;a href=&quot;http://astrocaribe.com&quot;&gt;AstroCaribe.com&lt;/a&gt;, is a hosted site
+that I will occasionally need to update (ok, I’m a few months behind, alright?).
+The problem is that, lately, I have been doing it so infrequently, that I forget
+how to deploy changes to my site.&lt;/p&gt;
+
+&lt;p&gt;Notes, you say? Notes are for suckers! But I suffer because of that thought
+process. Again, this is what this blog is for, a digital notebook!&lt;/p&gt;
+
+&lt;h3 id=&quot;strolling-down-memory-lane&quot;&gt;Strolling Down Memory Lane…&lt;/h3&gt;
+
+&lt;p&gt;After digging around my site for a little, I remembered that I am using
+&lt;a href=&quot;https://gruntjs.com/&quot;&gt;Grunt&lt;/a&gt;, and I have a &lt;code class=&quot;highlighter-rouge&quot;&gt;Gruntfile.js&lt;/code&gt; configuration all ready to go.
+Oh, look! I’ve set up grunt tasks that will basically push my updated site to
+the host, with minimal effort! Here’s what the relevant part of mine looks like:&lt;/p&gt;
+
+&lt;figure class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-javascript&quot; data-lang=&quot;javascript&quot;&gt;&lt;span class=&quot;nx&quot;&gt;module&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;exports&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;kd&quot;&gt;function&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;grunt&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
+  &lt;span class=&quot;nx&quot;&gt;grunt&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;initConfig&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;({&lt;/span&gt;
+    &lt;span class=&quot;na&quot;&gt;pkg&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;grunt&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;file&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;readJSON&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s1&quot;&gt;'package.json'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;),&lt;/span&gt;
+
+    &lt;span class=&quot;c1&quot;&gt;// unrelated tasks&lt;/span&gt;
+    &lt;span class=&quot;p&quot;&gt;...&lt;/span&gt;
+
+    &lt;span class=&quot;c1&quot;&gt;// host options for grunt-ssh tasks&lt;/span&gt;
+    &lt;span class=&quot;na&quot;&gt;sshconfig&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
+      &lt;span class=&quot;s2&quot;&gt;&quot;myhost&quot;&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;grunt&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;file&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;readJSON&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s1&quot;&gt;'secret.json'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+    &lt;span class=&quot;p&quot;&gt;},&lt;/span&gt;
+
+    &lt;span class=&quot;c1&quot;&gt;// grunt-ssh sftp task&lt;/span&gt;
+    &lt;span class=&quot;na&quot;&gt;sftp&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
+      &lt;span class=&quot;na&quot;&gt;upload&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
+        &lt;span class=&quot;na&quot;&gt;files&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
+          &lt;span class=&quot;s2&quot;&gt;&quot;./&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;assets/**&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;s2&quot;&gt;&quot;css/\**&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;s2&quot;&gt;&quot;favicon.ico&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;s2&quot;&gt;&quot;fonts/**&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;s2&quot;&gt;&quot;js/*&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;s2&quot;&gt;&quot;index.html&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;]&lt;/span&gt;
+        &lt;span class=&quot;p&quot;&gt;},&lt;/span&gt;
+        &lt;span class=&quot;na&quot;&gt;options&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
+          &lt;span class=&quot;na&quot;&gt;path&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;              &lt;span class=&quot;s1&quot;&gt;'&amp;lt;%= sshconfig.myhost.path %&amp;gt;'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;
+          &lt;span class=&quot;na&quot;&gt;config&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;            &lt;span class=&quot;s1&quot;&gt;'myhost'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;
+          &lt;span class=&quot;na&quot;&gt;showProgress&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;      &lt;span class=&quot;kc&quot;&gt;true&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;
+          &lt;span class=&quot;na&quot;&gt;createDirectories&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;kc&quot;&gt;true&lt;/span&gt;
+        &lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;
+      &lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;
+    &lt;span class=&quot;p&quot;&gt;},&lt;/span&gt;
+  &lt;span class=&quot;p&quot;&gt;});&lt;/span&gt;
+
+  &lt;span class=&quot;nx&quot;&gt;grunt&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;loadNpmTasks&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s1&quot;&gt;'grunt-ssh'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;);&lt;/span&gt;
+  &lt;span class=&quot;nx&quot;&gt;grunt&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;registerTask&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s1&quot;&gt;'default'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,[&lt;/span&gt;&lt;span class=&quot;s1&quot;&gt;'watch'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;]);&lt;/span&gt;
+&lt;span class=&quot;p&quot;&gt;};&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/figure&gt;
+
+&lt;h3 id=&quot;dev-dependencies&quot;&gt;Dev Dependencies:&lt;/h3&gt;
+&lt;p&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;grunt-ssh&lt;/code&gt;: Used to upload the site via ssh w/ sftp&lt;/p&gt;
+
+&lt;h3 id=&quot;just-a-little-insight&quot;&gt;Just A Little Insight&lt;/h3&gt;
+
+&lt;p&gt;For those familiar with Grunt, the above shouldn’t be to tough. For the
+uninitiated, I highly recommend &lt;a href=&quot;https://gruntjs.com/getting-started&quot;&gt;reading the docs&lt;/a&gt;. I’ll point out
+the pertinent parts below:&lt;/p&gt;
+
+&lt;p&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;sshconfig&lt;/code&gt;: Contains the host ssh credentials to that it can connect and copy
+the site files via sftp.&lt;/p&gt;
+
+&lt;p&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;sftp&lt;/code&gt;: The Grunt task that performs the site files upload. it uses the config
+read in &lt;code class=&quot;highlighter-rouge&quot;&gt;sshconfig&lt;/code&gt;, including ssh url and path of the hosted site. I want to
+&lt;code class=&quot;highlighter-rouge&quot;&gt;showProgress&lt;/code&gt; (I want o know how long this take, you know!), as well as
+&lt;code class=&quot;highlighter-rouge&quot;&gt;createDirectories&lt;/code&gt;, if there are new ones.&lt;/p&gt;
+
+&lt;p&gt;That’s it! Now that it’s all setup, and I am content with the changes to the
+site, I initial the upload Grunt task:&lt;/p&gt;
+
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;grunt sftp
+&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+
+&lt;p&gt;Seeing the following confirms that I did something right:&lt;/p&gt;
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;[astrocaribe:~/projects/some-site] grunt sftp
+Running &quot;sftp:upload&quot; (sftp) task
+assets/docs/tleblanc_resume.pdf [====================] 100% of 1MB
+assets/img/Self_obs.png [====================] 100% of 153KB
+assets/img/fisk.jpg [====================] 100% of 40KB
+assets/img/placeholder_140x140.gif [====================] 100% of 485B
+assets/img/portrait-md-rnd-1.jpg [====================] 100% of 48KB
+assets/img/portrait-md-rnd.jpg [====================] 100% of 34KB
+assets/img/umet.jpg [====================] 100% of 718KB
+assets/img/vanderbilt.png [====================] 100% of 14KB
+assets/js/ie-emulation-modes-warning.js [====================] 100% of 2KB
+assets/js/ie10-viewport-bug-workaround.js [====================] 100% of 641B
+...
+&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+
+&lt;h3 id=&quot;caveat&quot;&gt;Caveat&lt;/h3&gt;
+&lt;p&gt;One aspect of this task that I’m not completely happy with, is that it uploads
+&lt;em&gt;all&lt;/em&gt; my files; wether they were updated or not. Currently, this isn’t a big
+issue, since the site is so small. At most, I loose 1-2 minutes in the upload,
+which isn’t a worry right now.&lt;/p&gt;
+
+&lt;h3 id=&quot;the-end&quot;&gt;The end&lt;/h3&gt;
+&lt;p&gt;I know there are better ways to manage website deployments, but this is one I
+found on my own, and will eventually upgrade to a better method once I have the
+chance. How would you deploy your site?&lt;/p&gt;</content><author><name>astrocaribe</name></author><category term="dev" /><category term="website gulp" /><summary type="html">TL;DR:</summary></entry><entry><title type="html">Unscrewing a Git merge</title><link href="https://astrocaribe.github.io//dev/2017/07/31/git-merge-screwup.html" rel="alternate" type="text/html" title="Unscrewing a Git merge" /><published>2017-07-31T12:00:00-05:00</published><updated>2017-07-31T12:00:00-05:00</updated><id>https://astrocaribe.github.io//dev/2017/07/31/git-merge-screwup</id><content type="html" xml:base="https://astrocaribe.github.io//dev/2017/07/31/git-merge-screwup.html">&lt;p&gt;Yep. I screwed up a git merge today. It started with a sinking feeling that
 something wasn’t quite right, and ended with confirmation that “&lt;strong&gt;Yep, I really
 did screw that up!&lt;/strong&gt;”.&lt;/p&gt;
 
