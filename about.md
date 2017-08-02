@@ -6,8 +6,6 @@ permalink: /about/
 
 {%  include author.html %}
 
-***Reading time: ~{{ page.content | reading_time | pluralize: 'minute' }}***
-
 Concept to delivery Web/Software Application Developer, on solo and in team
 environments. I spend my time on front and back end development and web micro
 services using Ruby/Ruby on Rails, React/Flux, Java/Play Framework,
