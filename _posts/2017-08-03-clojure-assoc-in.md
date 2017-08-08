@@ -7,6 +7,10 @@ category: dev
 tags: [clojure]
 ---
 
+**Update (Aug 8, 2017):** I found another solution, outlined
+[here][assoc-2-post]! Not necessarily exciting, but another way, nonetheless!
+
+
 I came across a scenario where I needed to add a nested clojure map into an
 existing map; something like:
 
@@ -72,3 +76,6 @@ inside of another, using the result of the inner as the map for the outer:
 Voila!! I get the result I'm after! I'm must admit, however, that this does not
 feel like an elegant solution. I'll keep digging to refactor this, and post
 a better solution once I find it!
+
+
+[assoc-2-post]: {{ site.baseurl }}{% post_url 2017-08-08-clojure-assoc-part-2 %}
