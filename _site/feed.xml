@@ -1,5 +1,116 @@
-<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="3.4.1">Jekyll</generator><link href="https://astrocaribe.github.io//feed.xml" rel="self" type="application/atom+xml" /><link href="https://astrocaribe.github.io//" rel="alternate" type="text/html" /><updated>2017-08-04T10:37:12-05:00</updated><id>https://astrocaribe.github.io//</id><title type="html">What I Typed Today</title><subtitle>What I typed today - This blog is intended to document tidbits of information that I have learned, and continue to learn on my development journey.
-</subtitle><entry><title type="html">Clojure Assoc-in</title><link href="https://astrocaribe.github.io//dev/2017/08/03/clojure-assoc-in.html" rel="alternate" type="text/html" title="Clojure Assoc-in" /><published>2017-08-03T11:12:00-05:00</published><updated>2017-08-03T11:12:00-05:00</updated><id>https://astrocaribe.github.io//dev/2017/08/03/clojure-assoc-in</id><content type="html" xml:base="https://astrocaribe.github.io//dev/2017/08/03/clojure-assoc-in.html">&lt;p&gt;I came across a scenario where I needed to add a nested clojure map into an
+<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="3.4.1">Jekyll</generator><link href="https://astrocaribe.github.io//feed.xml" rel="self" type="application/atom+xml" /><link href="https://astrocaribe.github.io//" rel="alternate" type="text/html" /><updated>2017-08-08T11:43:28-05:00</updated><id>https://astrocaribe.github.io//</id><title type="html">What I Typed Today</title><subtitle>What I typed today - This blog is intended to document tidbits of information that I have learned, and continue to learn on my development journey.
+</subtitle><entry><title type="html">Clojure Test Fixutes</title><link href="https://astrocaribe.github.io//dev/2017/08/08/clojure-test-fixtures.html" rel="alternate" type="text/html" title="Clojure Test Fixutes" /><published>2017-08-08T05:33:00-05:00</published><updated>2017-08-08T05:33:00-05:00</updated><id>https://astrocaribe.github.io//dev/2017/08/08/clojure-test-fixtures</id><content type="html" xml:base="https://astrocaribe.github.io//dev/2017/08/08/clojure-test-fixtures.html">&lt;p&gt;In the past few months, I have really gotten into unit testing. I have done it
+in the past for Node apps in earnest, but in the past month or so, I have done a
+head-first dive into it, using &lt;a href=&quot;https://clojure.github.io/clojure/clojure.test-api.html&quot;&gt;clojure test&lt;/a&gt;.&lt;/p&gt;
+
+&lt;p&gt;I have just come across &lt;code class=&quot;highlighter-rouge&quot;&gt;use-fixtures&lt;/code&gt;, which I have seen before, but never
+used. I have come up with a quick example of how this works, I’ll share what I
+have here!&lt;/p&gt;
+
+&lt;h3 id=&quot;clojure-test-api&quot;&gt;Clojure Test API&lt;/h3&gt;
+&lt;p&gt;The Clojure &lt;a href=&quot;https://clojure.github.io/clojure/clojure.test-api.html&quot;&gt;test API&lt;/a&gt; provides a unit testing framework that is
+easy to use; I like it because it can be integrated with &lt;a href=&quot;https://www.jetbrains.com/idea/&quot;&gt;IntelliJ IDEA&lt;/a&gt;
+and &lt;a href=&quot;https://cursive-ide.com/userguide/testing.html&quot;&gt;Cursive&lt;/a&gt;. Using this I can quickly run the test suite,
+see the failures in the tests, and get immediate feedback as to why it/they
+failed, by showing a right vs. left comparison, assuming the &lt;code class=&quot;highlighter-rouge&quot;&gt;is&lt;/code&gt; comparator is
+being used.&lt;/p&gt;
+
+&lt;h3 id=&quot;use-fixtures&quot;&gt;Use-Fixtures&lt;/h3&gt;
+&lt;p&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;use-fixtures&lt;/code&gt; is used mainly to create setup/teardown tasks for unit test, and
+are defined once:&lt;/p&gt;
+
+&lt;figure class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-clojure&quot; data-lang=&quot;clojure&quot;&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;k&quot;&gt;defn&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;n&quot;&gt;my-test-fixure&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;f&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;]&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
+  &lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nb&quot;&gt;println&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&quot;My setup function here&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
+  &lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nf&quot;&gt;f&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
+  &lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nb&quot;&gt;println&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&quot;My teardown function here&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
+  &lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nb&quot;&gt;println&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;))&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/figure&gt;
+
+&lt;p&gt;So, &lt;code class=&quot;highlighter-rouge&quot;&gt;my-test-fixure&lt;/code&gt; takes a function &lt;code class=&quot;highlighter-rouge&quot;&gt;f&lt;/code&gt;, performs any function described (in
+this case, prints &lt;strong&gt;“My setup function here”&lt;/strong&gt;), then executes function &lt;code class=&quot;highlighter-rouge&quot;&gt;f&lt;/code&gt; that
+is passed in. Finally, it prints &lt;strong&gt;“My teardown function here”&lt;/strong&gt;, as defined above.&lt;/p&gt;
+
+&lt;p&gt;Now we define how the fixture is to be used:&lt;/p&gt;
+
+&lt;figure class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-clojure&quot; data-lang=&quot;clojure&quot;&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nf&quot;&gt;use-fixtures&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;no&quot;&gt;:each&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;n&quot;&gt;my-test-fixure&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/figure&gt;
+
+&lt;p&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;:each&lt;/code&gt; means that we want to use this fixture for &lt;strong&gt;every&lt;/strong&gt; unit test found. If
+you want to execute the fixture only once for the entire test suite (at the
+beginning and the end), use &lt;code class=&quot;highlighter-rouge&quot;&gt;:once&lt;/code&gt;. We’ll see the effect of these shortly.&lt;/p&gt;
+
+&lt;p&gt;Say we have a unit test ready to go:&lt;/p&gt;
+
+&lt;figure class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-clojure&quot; data-lang=&quot;clojure&quot;&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nf&quot;&gt;deftest&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;n&quot;&gt;a-test&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
+  &lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nf&quot;&gt;testing&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&quot;FIXME, I fail.&quot;&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
+    &lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nb&quot;&gt;println&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&quot;My first test here!&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
+    &lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nf&quot;&gt;is&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nb&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;1&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;1&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;))))&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/figure&gt;
+
+&lt;p&gt;Running our tests with &lt;code class=&quot;highlighter-rouge&quot;&gt;lein test&lt;/code&gt; yields:&lt;/p&gt;
+
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;Testing test-example.core-test
+My setup function here
+My first test here!
+My teardown function here
+
+
+Ran 1 tests containing 1 assertions.
+0 failures, 0 errors.
+&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+&lt;h3 id=&quot;once&quot;&gt;:once&lt;/h3&gt;
+&lt;p&gt;What happens if we add a second test? This is where the fixture frequency comes
+in. First, let’s add another test:&lt;/p&gt;
+
+&lt;figure class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-clojure&quot; data-lang=&quot;clojure&quot;&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nf&quot;&gt;deftest&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;n&quot;&gt;b-test&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
+  &lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nf&quot;&gt;testing&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&quot;FIXME 2, I fail more!&quot;&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
+    &lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nb&quot;&gt;println&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&quot;My second test here!&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
+    &lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nf&quot;&gt;is&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nb&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;6&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;6&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;))))&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/figure&gt;
+
+&lt;p&gt;And, set up the fixture to execute once for the test suite (begin/end):&lt;/p&gt;
+
+&lt;figure class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-clojure&quot; data-lang=&quot;clojure&quot;&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nf&quot;&gt;use-fixtures&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;no&quot;&gt;:once&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;n&quot;&gt;my-test-fixure&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/figure&gt;
+
+&lt;p&gt;With &lt;code class=&quot;highlighter-rouge&quot;&gt;lein test&lt;/code&gt; once again, we now get:&lt;/p&gt;
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;Testing test-example.core-test
+My setup function here
+My second test here!
+My first test here!
+My teardown function here
+
+
+Ran 2 tests containing 2 assertions.
+0 failures, 0 errors.
+&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+
+&lt;p&gt;Yep, just as we expected! How about executing the fixture for each test?&lt;/p&gt;
+
+&lt;h3 id=&quot;each&quot;&gt;:each&lt;/h3&gt;
+&lt;p&gt;Let’s set it up to run for every test in the suite:&lt;/p&gt;
+
+&lt;figure class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-clojure&quot; data-lang=&quot;clojure&quot;&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nf&quot;&gt;use-fixtures&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;no&quot;&gt;:each&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;n&quot;&gt;my-test-fixure&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/figure&gt;
+
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;Testing test-example.core-test
+My setup function here
+My second test here!
+My teardown function here
+
+My setup function here
+My first test here!
+My teardown function here
+
+
+Ran 2 tests containing 2 assertions.
+0 failures, 0 errors.
+&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+
+&lt;p&gt;And there it is!&lt;/p&gt;
+
+&lt;h3 id=&quot;in-closing&quot;&gt;In Closing…&lt;/h3&gt;
+&lt;p&gt;This will be a neat tidbit when setting up a test suite that requires setting up
+and tearing down tasks, without requiring them to be done in the test
+explicitly. It gives you a centralized place to perform these tasks, making the
+actual writing of unit tests easier.&lt;/p&gt;</content><author><name>astrocaribe</name></author><category term="dev" /><category term="clojure unittests intellij idea" /><summary type="html">In the past few months, I have really gotten into unit testing. I have done it in the past for Node apps in earnest, but in the past month or so, I have done a head-first dive into it, using clojure test.</summary></entry><entry><title type="html">Clojure Assoc-in</title><link href="https://astrocaribe.github.io//dev/2017/08/03/clojure-assoc-in.html" rel="alternate" type="text/html" title="Clojure Assoc-in" /><published>2017-08-03T11:12:00-05:00</published><updated>2017-08-03T11:12:00-05:00</updated><id>https://astrocaribe.github.io//dev/2017/08/03/clojure-assoc-in</id><content type="html" xml:base="https://astrocaribe.github.io//dev/2017/08/03/clojure-assoc-in.html">&lt;p&gt;I came across a scenario where I needed to add a nested clojure map into an
 existing map; something like:&lt;/p&gt;
 
 &lt;h4 id=&quot;original&quot;&gt;Original:&lt;/h4&gt;
